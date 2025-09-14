@@ -1,0 +1,70 @@
+# Central configuration for the Multimodal RAG Pipeline
+
+# Document Store Configuration (ChromaDB)
+document_store:
+  collection_name: "multimodal_rag"
+  embedding_function: "default"
+  persist_path: "./chroma_db"
+
+# Embedder Configuration (used for indexing and querying)
+embedder:
+  model: "nomic-embed-text"
+  ollama_url: "http://localhost:11434"
+  timeout: 120
+
+# Document Splitter Configuration
+splitter:
+  split_unit: "word"
+  split_length: 100
+  split_overlap: 10
+
+# File Type Router for Indexing
+file_router:
+  mime_types:
+    - "text/plain"
+    - "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    - "application/pdf"
+
+# Retriever Configuration
+retriever:
+  top_k: 5
+
+# Large Language Model (LLM) Configurations
+llm:
+  main_generator:
+    model: "llama3.2:1b"
+    url: "http://localhost:11434"
+  guardrail_generator:
+    model: "llama-guard3:1b"
+    url: "http://localhost:11434"
+  vision_generator:
+    model: "moondream:1.8b"
+    url: "http://localhost:11434"
+    generation_kwargs:
+      num_predict: 200
+      temperature: 0.1
+      top_p: 0.9
+
+# Moderation and Safety
+moderation:
+  router_patterns:
+    unsafe: ".*unsafe.*"
+    safe: ".*safe.*"
+  static_response: "I cannot process this request as it may contain inappropriate content. Please rephrase your question."
+
+# Multimodal PDF Converter Component Configuration
+multimodal_converter:
+  store_full_path: true
+  min_image_size_bytes: 2048
+  max_images_per_page: 10
+  image_description_prompt: "Describe this image in detail, focusing on the main content, text, charts, diagrams, and any important visual elements."
+
+# Langfuse Tracing Configuration
+langfuse:
+  enabled: False  # Set this to false to disable Langfuse tracing
+  indexing_trace_name: "Indexing"
+  query_trace_name: "Query"
+
+# General Path Configuration
+paths:
+  data_directory: "data"
