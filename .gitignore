@@ -210,3 +210,4 @@ __marimo__/
 # Project
 data/
 chroma_db/
+/.deepeval
