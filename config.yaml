@@ -44,6 +44,9 @@ llm:
       num_predict: 200
       temperature: 0.1
       top_p: 0.9
+  evaluation_generator:
+    model: "qwen3:30b"
+    url: "http://localhost:11434"
 
 # Moderation and Safety
 moderation:
@@ -68,3 +71,36 @@ langfuse:
 # General Path Configuration
 paths:
   data_directory: "data"
+
+# Evaluation Test Cases
+evaluation:
+  test_cases:
+    - query: "What is the main contribution of the Transformer architecture?"
+      expected_output: "A neural network architecture based solely on self-attention, removing recurrence and convolution."
+
+    - query: "What are the three main components of the multi-head attention mechanism?"
+      expected_output: "Query (Q), Key (K), and Value (V) matrices."
+
+    - query: "What is the purpose of positional encoding in the Transformer model?"
+      expected_output: "To inject information about token positions into the sequence."
+
+    - query: "How many attention heads does the Transformer model use and what is the dimension of each head?"
+      expected_output: "8 heads, each with dimension 64 (d_model=512)."
+
+    - query: "What is the feed-forward network dimension in each Transformer layer?"
+      expected_output: "Inner dimension 2048, input/output dimension 512."
+
+    - query: "What activation function is used in the feed-forward networks?"
+      expected_output: "ReLU."
+
+    - query: "What is the scaled dot-product attention formula?"
+      expected_output: "Attention(Q,K,V) = softmax(QK^T/√d_k)V."
+
+    - query: "What datasets were used to evaluate the Transformer model's performance?"
+      expected_output: "WMT 2014 English-German (~4.5M) and WMT 2014 English-French (36M)."
+
+    - query: "What BLEU scores did the Transformer achieve on the translation tasks?"
+      expected_output: "28.4 (En-De), 41.8 (En-Fr)."
+
+    - query: "What is the computational complexity advantage of self-attention over recurrent layers?"
+      expected_output: "Self-attention O(n²·d), recurrence O(n·d²); sequential ops O(1) vs O(n)."
