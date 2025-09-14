@@ -1,26 +1,27 @@
+import os
 import json
 
 import requests
 import streamlit as st
 
-# --- Page Configuration ---
+# Page Configuration
 st.set_page_config(
-    page_title="Haystack RAG Frontend",
-    page_icon="🤖",
+    page_title="Multimodal RAG Frontend",
     layout="wide"
 )
 
 # --- UI Elements ---
-st.title("🤖 Haystack RAG Frontend")
+st.title("Haystack RAG Frontend")
 st.write("Ask a question and get a streaming response from the Haystack RAG pipeline.")
 
 # The backend API endpoint
-API_URL = "http://localhost:8000/query"
+API_BASE_URL = os.getenv("API_URL", "http://localhost:8000")
+API_URL = f"{API_BASE_URL}/query"
 
 # User input
 query = st.text_input("Enter your question:", placeholder="e.g., What is the capital of France?")
 
-# --- API Interaction and Streaming ---
+# API Interaction and Streaming
 if st.button("Ask"):
     if query:
         st.subheader("Answer:")
